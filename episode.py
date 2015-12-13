@@ -23,7 +23,6 @@ class Episode(object):
     data = {
       't' : self.title,
       'ts' : self.timestamp,
-      'n' : self.post.title
     }
 
     images = []
