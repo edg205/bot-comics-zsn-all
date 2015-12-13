@@ -1,0 +1,4 @@
+requests==2.8.1
+BeautifulSoup==3.2.1
+bottle==0.12.8
+raven==5.3.1
