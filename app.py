@@ -61,6 +61,9 @@ def main():
             if not episode.title:
               continue
 
+            if not episode.images:
+              continue
+
             if len(episode.images) < 1:
               continue
 
