@@ -42,35 +42,39 @@ def main():
             session=post_list_parser.session,
             post=post
           )
-          episodes = post_parser.parse()
-          for episode in episodes:
+          try:
+            episodes = post_parser.parse()
+            for episode in episodes:
 
-            if w.exist(episode):
-              continue
+              if w.exist(episode):
+                continue
             
-            episode_parser= parser.EpisodeParser(
-              session=post_parser.session,
-              episode=episode,
-              referer=post.url
-            )
-            episode = episode_parser.parse()
+              episode_parser= parser.EpisodeParser(
+                session=post_parser.session,
+                episode=episode,
+                referer=post.url
+              )
+              episode = episode_parser.parse()
+              
+              if not episode:
+                continue
+              
+              if not episode.title:
+                continue
 
-            if not episode:
-              continue
+              if not episode.images:
+                continue
 
-            if not episode.title:
-              continue
+              if len(episode.images) < 1:
+                continue
 
-            if not episode.images:
-              continue
+              w.send(episode)
 
-            if len(episode.images) < 1:
-              continue
-
-            w.send(episode)
-
-            # end
-            time.sleep(1)
+              # end
+              time.sleep(1)
+          except Exception as e:
+            print e
+            continue
 
     except requests.ConnectionError as e:
       print e

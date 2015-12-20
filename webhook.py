@@ -9,7 +9,10 @@ class Webhook(object):
   def __init__(self, webhook_url, s3_url):
     self.webhook_url = webhook_url
     self.s3_url = s3_url
-    self.collection = self.webhook_url.split('/')[-1]
+                
+    splited = self.webhook_url.split('/')
+    self.database = splited[-2]
+    self.collection = splited[-1]
 
   def exist(self, episode):
     params = episode.get_params()
@@ -39,9 +42,11 @@ class Webhook(object):
     headers = {
       'Content-Type': 'application/octet-stream'
     }
+    
+    content = self.database.split('_')[-1]
 
     params = {
-      'name': self.collection + '/' + ts + '/' + attachment.name
+      'name': content + '/' + self.collection + '/' + ts + '/' + attachment.name
     }
 
     r = requests.put(self.s3_url, params=params, data=attachment.content, headers=headers)
