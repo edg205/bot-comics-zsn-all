@@ -31,7 +31,7 @@ class Episode(object):
         continue
       images.append(image.name)
 
-    data['i'] = images
+    data['imgs'] = images
 
     if self.post.image:
       data['c'] = self.post.image.name
