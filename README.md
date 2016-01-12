@@ -1,1 +1,1 @@
-# bot-mg-zs
+# bot-comics-zsn-all
