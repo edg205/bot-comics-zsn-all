@@ -107,6 +107,10 @@ class PostParser(object):
       if not title :
         continue
 
+      encoded = BeautifulSoup.BeautifulSoup(title,convertEntities=BeautifulSoup.BeautifulSoup.HTML_ENTITIES)
+      title = encoded.contents[0]
+      title = str(unicode(title))
+
       ep = episode.Episode(url=href, post=self.post, title=title)
       episodes.append(ep)
 
